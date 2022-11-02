@@ -43,6 +43,7 @@ SRC_URI = "git://github.com/linux-test-project/ltp.git;branch=master;protocol=ht
            file://0002-Makefile-Avoid-wildcard-determinism-issues.patch \
            file://0003-syscalls-swapon-swapoff-Move-common-library-to-libs.patch \
            file://disable_hanging_tests.patch \
+           file://0001-common_timers-define-NSEC_PER_SEC-as-long-long-to-av.patch \
            "
 
 S = "${WORKDIR}/git"
