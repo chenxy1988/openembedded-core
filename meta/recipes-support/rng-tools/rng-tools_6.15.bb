@@ -12,6 +12,7 @@ SRC_URI = "git://github.com/nhorman/rng-tools.git;branch=master;protocol=https \
            file://init \
            file://default \
            file://rng-tools.service \
+           file://0001-Adjust-jitterentropy-library-to-timeout-fail-on-long.patch \
            "
 SRCREV = "381f69828b782afda574f259c1b7549f48f9bb77"
 
