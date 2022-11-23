@@ -33,7 +33,10 @@ PTESTS_FAST = "\
     libpcre-ptest \
     libssh2-ptest \
     libtimedate-perl-ptest \
+    libtest-fatal-perl-ptest \
     libtest-needs-perl-ptest \
+    libtest-warnings-perl-ptest \
+    libtry-tiny-perl-ptest \
     liburi-perl-ptest \
     libusb1-ptest \
     libxml-namespacesupport-perl-ptest \
