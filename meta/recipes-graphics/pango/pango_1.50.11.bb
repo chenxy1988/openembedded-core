@@ -21,10 +21,11 @@ GIR_MESON_ENABLE_FLAG = "enabled"
 GIR_MESON_DISABLE_FLAG = "disabled"
 
 SRC_URI += "file://run-ptest \
-            file://0001-Skip-running-test-layout-test.patch \
-"
+           file://0001-Skip-running-test-layout-test.patch \
+           file://0001-tests-meson.build-install-nofonts-fonts.conf-as-it-i.patch \
+           "
 
-SRC_URI[archive.sha256sum] = "7e5d2f1e40854d24a9a2c4d093bafe75dcdbeccdf1de43e4437332eabed64966"
+SRC_URI[archive.sha256sum] = "8800f812d89ee61388188703203f3a7878963c22f8695aaf1fa0a1a1428d17ae"
 
 DEPENDS = "glib-2.0 glib-2.0-native fontconfig freetype virtual/libiconv cairo harfbuzz fribidi"
 
@@ -38,7 +39,7 @@ PACKAGECONFIG[thai] = ",,libthai"
 GIR_MESON_OPTION = 'introspection'
 
 do_configure:prepend() {
-    chmod +x ${S}/tests/*.py
+	chmod +x ${S}/tests/*.py
 }
 
 LEAD_SONAME = "libpango-1.0*"

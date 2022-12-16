@@ -11,10 +11,12 @@ inherit autotools pkgconfig update-alternatives
 DEPENDS = "zlib e2fsprogs util-linux"
 RDEPENDS:mtd-utils-tests += "bash"
 
-PV = "2.1.5"
+PV = "2.1.4"
 
-SRCREV = "3f3b4cc6c3120107e7aaa21c6415772a255ac49c"
-SRC_URI = "git://git.infradead.org/mtd-utils.git;branch=master"
+SRCREV = "c7f1bfa44a84d02061787e2f6093df5cc40b9f5c"
+SRC_URI = "git://git.infradead.org/mtd-utils.git;branch=master \
+           file://0001-tests-Remove-unused-linux-fs.h-header-from-includes.patch \
+           "
 
 S = "${WORKDIR}/git"
 
@@ -71,3 +73,5 @@ BBCLASSEXTEND = "native nativesdk"
 # git/.compr.c.dep:46: warning: NUL character seen; rest of line ignored
 # git/.compr.c.dep:47: *** missing separator.  Stop.
 PARALLEL_MAKE = ""
+
+EXCLUDE_FROM_WORLD = "1"
