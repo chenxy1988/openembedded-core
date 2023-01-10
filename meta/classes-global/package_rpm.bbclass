@@ -299,7 +299,7 @@ python write_specfile () {
     srcmaintainer  = localdata.getVar('MAINTAINER')
     srchomepage    = localdata.getVar('HOMEPAGE')
     srcdescription = localdata.getVar('DESCRIPTION') or "."
-    srccustomtagschunk = get_package_additional_metadata("rpm", localdata)
+    srccustomtagschunk = oe.packagedata.get_package_additional_metadata("rpm", localdata)
 
     srcdepends     = d.getVar('DEPENDS')
     srcrdepends    = ""
@@ -341,7 +341,7 @@ python write_specfile () {
 
         localdata.setVar('OVERRIDES', d.getVar("OVERRIDES", False) + ":" + pkg)
 
-        conffiles = get_conffiles(pkg, d)
+        conffiles = oe.package.get_conffiles(pkg, d)
         dirfiles = localdata.getVar('DIRFILES')
         if dirfiles is not None:
             dirfiles = dirfiles.split()
@@ -355,7 +355,7 @@ python write_specfile () {
         splitlicense = (localdata.getVar('LICENSE') or "")
         splitsection = (localdata.getVar('SECTION') or "")
         splitdescription = (localdata.getVar('DESCRIPTION') or ".")
-        splitcustomtagschunk = get_package_additional_metadata("rpm", localdata)
+        splitcustomtagschunk = oe.packagedata.get_package_additional_metadata("rpm", localdata)
 
         translate_vers('RDEPENDS', localdata)
         translate_vers('RRECOMMENDS', localdata)
@@ -365,7 +365,7 @@ python write_specfile () {
         translate_vers('RCONFLICTS', localdata)
 
         # Map the dependencies into their final form
-        mapping_rename_hook(localdata)
+        oe.packagedata.mapping_rename_hook(localdata)
 
         splitrdepends    = localdata.getVar('RDEPENDS') or ""
         splitrrecommends = localdata.getVar('RRECOMMENDS') or ""
