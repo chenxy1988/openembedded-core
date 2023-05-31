@@ -72,7 +72,6 @@ LDFLAGS="-ldl -lutil"
 EXTRA_OEMAKE = '\
     V=1 \
     -C ${S}/tools/perf \
-    O=${B} \
     CROSS_COMPILE=${TARGET_PREFIX} \
     ARCH=${ARCH} \
     CC="${CC}" \
