@@ -17,6 +17,7 @@ PTESTS_FAST = "\
     diffutils \
     ethtool \
     expat \
+    expect \
     findutils \
     flex \
     gawk \
@@ -56,6 +57,7 @@ PTESTS_FAST = "\
     popt \
     python3-atomicwrites \
     python3-bcrypt \
+    python3-calver \
     python3-hypothesis \
     python3-jinja2 \
     python3-jsonpointer \
@@ -64,6 +66,7 @@ PTESTS_FAST = "\
     python3-pluggy \
     python3-pyasn1 \
     python3-pytz \
+    python3-trove-classifiers \
     python3-wcwidth \
     python3-webcolors \
     qemu \
@@ -106,6 +109,7 @@ PTESTS_SLOW = "\
     tcl \
     util-linux \
     valgrind \
+    lz4 \
 "
 
 PTESTS_SLOW:remove:riscv64 = "valgrind"
@@ -115,7 +119,6 @@ PTESTS_SLOW:remove:x86 = "valgrind"
 PTESTS_PROBLEMS:append:x86 = " valgrind"
 
 #    ruby \ # Timeout
-#    lz4 \ # Needs a rewrite
 #    rt-tests \ # Needs to be checked whether it runs at all
 #    bash \ # Test outcomes are non-deterministic by design
 #    ifupdown \ # Tested separately in lib/oeqa/selftest/cases/imagefeatures.py
@@ -128,7 +131,6 @@ PTESTS_PROBLEMS:append:x86 = " valgrind"
 
 PTESTS_PROBLEMS = "\
     ruby \
-    lz4 \
     rt-tests \
     bash \
     ifupdown \

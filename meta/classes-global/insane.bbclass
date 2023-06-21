@@ -44,10 +44,11 @@ ERROR_QA ?= "dev-so debug-deps dev-deps debug-files arch pkgconfig la \
             already-stripped installed-vs-shipped ldflags compile-host-path \
             install-host-path pn-overrides unknown-configure-option \
             useless-rpaths rpaths staticdev empty-dirs \
-            patch-fuzz patch-status-core\
+            patch-fuzz \
             "
 # Add usrmerge QA check based on distro feature
 ERROR_QA:append = "${@bb.utils.contains('DISTRO_FEATURES', 'usrmerge', ' usrmerge', '', d)}"
+ERROR_QA:append:layer-core = " patch-status"
 
 FAKEROOT_QA = "host-user-contaminated"
 FAKEROOT_QA[doc] = "QA tests which need to run under fakeroot. If any \
@@ -617,22 +618,14 @@ def check_32bit_symbols(path, packagename, d, elf, messages):
             # At this point, any symbol information is stripped into the debug
             # package, so that is the only place we will find them.
             elfpath = elfpath.replace('.debug/', '')
-            allowed = (
-                d.getVarFlag(
-                    'INSANE_SKIP:' + d.getVar('PN'), elfpath.replace('/', '_')
-                ) or ''
-            ).split()
-            usedapis -= set(allowed)
-            if usedapis:
+            allowed = "32bit-time" in (d.getVar('INSANE_SKIP') or '').split()
+            if not allowed:
                 msgformat = elfpath + " uses 32-bit api '%s'"
                 for sym in usedapis:
                     oe.qa.add_message(messages, '32bit-time', msgformat % sym)
                 oe.qa.add_message(
                     messages, '32bit-time',
-                    'Suppress with INSANE_SKIP:%s[%s] = "%s"' % (
-                        d.getVar('PN'), elfpath.replace('/', '_'),
-                        ' '.join(usedapis)
-                    )
+                    'Suppress with INSANE_SKIP = "32bit-time"'
                 )
 
 # Check license variables
@@ -1342,24 +1335,13 @@ python do_qa_patch() {
     import re
     from oe import patch
 
-    allpatches = False
-    if bb.utils.filter('ERROR_QA', 'patch-status-noncore', d) or bb.utils.filter('WARN_QA', 'patch-status-noncore', d):
-        allpatches = True
-
     coremeta_path = os.path.join(d.getVar('COREBASE'), 'meta', '')
     for url in patch.src_patches(d):
         (_, _, fullpath, _, _, _) = bb.fetch.decodeurl(url)
 
-        # skip patches not in oe-core
-        patchtype = "patch-status-core"
-        if not os.path.abspath(fullpath).startswith(coremeta_path):
-            patchtype = "patch-status-noncore"
-            if not allpatches:
-                continue
-
         msg = oe.qa.check_upstream_status(fullpath)
         if msg:
-            oe.qa.handle_error(patchtype, msg, d)
+            oe.qa.handle_error("patch-status", msg, d)
 
     oe.qa.exit_if_errors(d)
 }

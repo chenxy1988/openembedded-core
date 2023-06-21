@@ -9,16 +9,16 @@ SRC_URI = "gitsm://github.com/KhronosGroup/Vulkan-Samples.git;branch=main;protoc
            file://debugfix.patch \
            file://0001-Do-not-use-LFS64-functions-on-linux-musl.patch;patchdir=third_party/spdlog \
            file://0001-Deprecate-u8string_view.patch;patchdir=third_party/spdlog \
+           file://32bit.patch \
            "
 
 UPSTREAM_CHECK_COMMITS = "1"
-SRCREV = "3df7dba1b1f428f24cd9a242af78540a518f4b67"
+SRCREV = "2307c3eb5608cb1205fa3514b3a31dbfb857d00c"
 
 UPSTREAM_CHECK_GITTAGREGEX = "These are not the releases you're looking for"
 S = "${WORKDIR}/git"
 
 REQUIRED_DISTRO_FEATURES = 'vulkan'
-COMPATIBLE_HOST = "(x86_64|aarch64|mips64|powerpc64|riscv64|loongarch64).*-linux"
 
 inherit cmake features_check
 
